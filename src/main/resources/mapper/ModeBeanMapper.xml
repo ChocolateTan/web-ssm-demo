@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssm.dao.ModeBeanMapper">
+  <resultMap id="BaseResultMap" type="com.ssm.bean.ModeBean">
+    <id column="modeId" jdbcType="BIGINT" property="modeid" />
+    <result column="modeName" jdbcType="VARCHAR" property="modename" />
+    <result column="xSize" jdbcType="INTEGER" property="xsize" />
+    <result column="ySize" jdbcType="INTEGER" property="ysize" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="modifyTime" jdbcType="TIMESTAMP" property="modifytime" />
+    <result column="isDelete" jdbcType="TINYINT" property="isdelete" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ssm.bean.ModeBean">
+    <result column="modeInfo" jdbcType="LONGVARCHAR" property="modeinfo" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    modeId, modeName, xSize, ySize, createTime, modifyTime, isDelete
+  </sql>
+  <sql id="Blob_Column_List">
+    modeInfo
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.ssm.bean.ModeBeanExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_mode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.ssm.bean.ModeBeanExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_mode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_mode
+    where modeId = #{modeid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_mode
+    where modeId = #{modeid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ssm.bean.ModeBeanExample">
+    delete from tb_mode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ssm.bean.ModeBean">
+    insert into tb_mode (modeId, modeName, xSize,
+      ySize, createTime, modifyTime, 
+      isDelete, modeInfo)
+    values (#{modeid,jdbcType=BIGINT}, #{modename,jdbcType=VARCHAR}, #{xsize,jdbcType=INTEGER},
+      #{ysize,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP}, 
+      #{isdelete,jdbcType=TINYINT}, #{modeinfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ssm.bean.ModeBean">
+    insert into tb_mode
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="modeid != null">
+        modeId,
+      </if>
+      <if test="modename != null">
+        modeName,
+      </if>
+      <if test="xsize != null">
+        xSize,
+      </if>
+      <if test="ysize != null">
+        ySize,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="modifytime != null">
+        modifyTime,
+      </if>
+      <if test="isdelete != null">
+        isDelete,
+      </if>
+      <if test="modeinfo != null">
+        modeInfo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="modeid != null">
+        #{modeid,jdbcType=BIGINT},
+      </if>
+      <if test="modename != null">
+        #{modename,jdbcType=VARCHAR},
+      </if>
+      <if test="xsize != null">
+        #{xsize,jdbcType=INTEGER},
+      </if>
+      <if test="ysize != null">
+        #{ysize,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null">
+        #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null">
+        #{isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="modeinfo != null">
+        #{modeinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ssm.bean.ModeBeanExample" resultType="java.lang.Long">
+    select count(*) from tb_mode
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_mode
+    <set>
+      <if test="record.modeid != null">
+        modeId = #{record.modeid,jdbcType=BIGINT},
+      </if>
+      <if test="record.modename != null">
+        modeName = #{record.modename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.xsize != null">
+        xSize = #{record.xsize,jdbcType=INTEGER},
+      </if>
+      <if test="record.ysize != null">
+        ySize = #{record.ysize,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.modifytime != null">
+        modifyTime = #{record.modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.isdelete != null">
+        isDelete = #{record.isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="record.modeinfo != null">
+        modeInfo = #{record.modeinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update tb_mode
+    set modeId = #{record.modeid,jdbcType=BIGINT},
+      modeName = #{record.modename,jdbcType=VARCHAR},
+      xSize = #{record.xsize,jdbcType=INTEGER},
+      ySize = #{record.ysize,jdbcType=INTEGER},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      modifyTime = #{record.modifytime,jdbcType=TIMESTAMP},
+      isDelete = #{record.isdelete,jdbcType=TINYINT},
+      modeInfo = #{record.modeinfo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_mode
+    set modeId = #{record.modeid,jdbcType=BIGINT},
+      modeName = #{record.modename,jdbcType=VARCHAR},
+      xSize = #{record.xsize,jdbcType=INTEGER},
+      ySize = #{record.ysize,jdbcType=INTEGER},
+      createTime = #{record.createtime,jdbcType=TIMESTAMP},
+      modifyTime = #{record.modifytime,jdbcType=TIMESTAMP},
+      isDelete = #{record.isdelete,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ssm.bean.ModeBean">
+    update tb_mode
+    <set>
+      <if test="modename != null">
+        modeName = #{modename,jdbcType=VARCHAR},
+      </if>
+      <if test="xsize != null">
+        xSize = #{xsize,jdbcType=INTEGER},
+      </if>
+      <if test="ysize != null">
+        ySize = #{ysize,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifytime != null">
+        modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isdelete != null">
+        isDelete = #{isdelete,jdbcType=TINYINT},
+      </if>
+      <if test="modeinfo != null">
+        modeInfo = #{modeinfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where modeId = #{modeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ssm.bean.ModeBean">
+    update tb_mode
+    set modeName = #{modename,jdbcType=VARCHAR},
+      xSize = #{xsize,jdbcType=INTEGER},
+      ySize = #{ysize,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+      isDelete = #{isdelete,jdbcType=TINYINT},
+      modeInfo = #{modeinfo,jdbcType=LONGVARCHAR}
+    where modeId = #{modeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ssm.bean.ModeBean">
+    update tb_mode
+    set modeName = #{modename,jdbcType=VARCHAR},
+      xSize = #{xsize,jdbcType=INTEGER},
+      ySize = #{ysize,jdbcType=INTEGER},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      modifyTime = #{modifytime,jdbcType=TIMESTAMP},
+      isDelete = #{isdelete,jdbcType=TINYINT}
+    where modeId = #{modeid,jdbcType=BIGINT}
+  </update>
+</mapper>
