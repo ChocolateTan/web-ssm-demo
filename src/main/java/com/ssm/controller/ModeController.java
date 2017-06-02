@@ -2,6 +2,7 @@ package com.ssm.controller;
 
 import com.ssm.bean.ModeBean;
 import com.ssm.service.ModeService;
+import com.ssm.service.RecordService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

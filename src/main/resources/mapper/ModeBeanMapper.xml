@@ -126,10 +126,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ssm.bean.ModeBean">
-    insert into tb_mode (modeId, modeName, xSize,
+    insert into tb_mode (modeId, modeName, xSize, 
       ySize, createTime, modifyTime, 
       isDelete, modeInfo)
-    values (#{modeid,jdbcType=BIGINT}, #{modename,jdbcType=VARCHAR}, #{xsize,jdbcType=INTEGER},
+    values (#{modeid,jdbcType=BIGINT}, #{modename,jdbcType=VARCHAR}, #{xsize,jdbcType=INTEGER}, 
       #{ysize,jdbcType=INTEGER}, #{createtime,jdbcType=TIMESTAMP}, #{modifytime,jdbcType=TIMESTAMP}, 
       #{isdelete,jdbcType=TINYINT}, #{modeinfo,jdbcType=LONGVARCHAR})
   </insert>

@@ -47,6 +47,7 @@
         <!--<table tableName="user" domainObjectName="User"/>-->
         <table tableName="tb_user" domainObjectName="UserBean"/>
         <table tableName="tb_mode" domainObjectName="ModeBean"/>
+        <table tableName="tb_record" domainObjectName="RecordBean"/>
 
     </context>
 </generatorConfiguration>

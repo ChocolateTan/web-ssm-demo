@@ -18,6 +18,12 @@
     <p>b:<%=bastPath%></p>
     <div>
         <table width="100%" border=1>
+            <tr>
+                <th>游戏</th>
+                <th>x</th>
+                <th>y</th>
+                <th></th>
+            </tr>
             <c:forEach items="${modeList}" var="item">
                 <tr>
                     <td>

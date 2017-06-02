@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: don
@@ -11,6 +12,27 @@
     <meta charset="UTF-8">
     <title>Game</title>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script>
+        function submitGameResult(name, step) {
+//            String modeId, String name, String step
+            $.ajax({
+                type: "POST",
+                url: "/game/submitGameResult",
+                data: {
+                    modeId: ${mode.modeid},
+                    name: name,
+                    step: step,
+                },
+                success: function (data) {
+                    alert('success');
+                },
+                error: function () {
+                    alert('fail');
+                }
+            })
+        }
+
+    </script>
 </head>
 <body>
 
@@ -25,6 +47,22 @@
         <label style="background-color: #00FF00"><input id="radioColor3" type="radio" name="radioColor"/>#00FF00</label>
     </div>
     <label>當前步數：<label id="labStep" data-step="0">0</label></label>
+    <P>
+        <c:if test="${!empty recordList}">
+    <table>
+        <tr>
+            <th>玩家</th>
+            <th>步数</th>
+        </tr>
+        <c:forEach var="current" items="${recordList}">
+            <tr>
+                <td><c:out value="${current.recordname}"/></td>
+                <td><c:out value="${current.step}"/></td>
+            </tr>
+        </c:forEach>
+    </table>
+    </c:if>
+    </P>
 </div>
 
 <script type="text/javascript">
@@ -80,9 +118,9 @@
         }
         console.log("--------");
 
-        for (var j = 0; j < cellArray.length; j ++){
+        for (var j = 0; j < cellArray.length; j++) {
             var tr = document.createElement("tr");
-            for (var i = 0; i < cellArray[j].length; i++){
+            for (var i = 0; i < cellArray[j].length; i++) {
                 var td = document.createElement("td");
                 var color = cellArray[j][i].color;
                 cellArray[j][i].obj = td;
@@ -247,6 +285,10 @@
         if (isFinish) {
             var labStep = document.getElementById("labStep");
             alert(labStep.innerHTML + '步完成')
+            var theResponse = window.prompt("留下您的大名", "请在此输入您的昵称");
+            if (null != theResponse) {
+                submitGameResult(theResponse, labStep.innerHTML);
+            }
         }
     }
 
