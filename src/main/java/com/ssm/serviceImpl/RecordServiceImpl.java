@@ -34,14 +34,18 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<RecordBean> listRecord() {
-        return recordBeanMapper.selectByExample(null);
+    public List<RecordBean> listRecord(Long id) {
+        RecordBeanExample example = new RecordBeanExample();
+        example.createCriteria().andModeidEqualTo(id);
+        return recordBeanMapper.selectByExample(example);
     }
 
     @Override
-    public List<RecordBean> listRecordAsc() {
+    public List<RecordBean> listRecordAsc(Long id) {
         RecordBeanExample example = new RecordBeanExample();
-        example.setOrderByClause("step");
+        example.createCriteria().andModeidEqualTo(id);
+        example.setOrderByClause("step asc, createDate desc");
+
         return recordBeanMapper.selectByExample(example);
     }
 

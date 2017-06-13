@@ -31,7 +31,7 @@ public class GameController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ModelAndView showGame(@PathVariable("id") Integer id) {
         ModeBean mode = modeService.getModeById(id);
-        List<RecordBean> recordList = recordService.listRecordAsc();
+        List<RecordBean> recordList = recordService.listRecordAsc(Long.valueOf(id));
 
         System.out.println(mode.getModename());
         System.out.println(mode.getXsize());

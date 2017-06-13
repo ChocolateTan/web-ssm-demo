@@ -276,7 +276,7 @@
         var isFinish = true;
         for (var j = 0; j < gameModel.ySize; j++) {
             for (var i = 0; i < gameModel.xSize; i++) {
-                if (cellArray[i][j].obj.style.backgroundColor != currentColor) {
+                if (cellArray[j][i].obj.style.backgroundColor != currentColor) {
                     isFinish = false;
                     break;
                 }

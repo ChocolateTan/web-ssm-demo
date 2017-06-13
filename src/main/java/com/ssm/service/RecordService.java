@@ -11,7 +11,7 @@ public interface RecordService {
     int insertSelectiveRecord(RecordBean recordBean);
     int deleteRecord(long id);
     RecordBean getRecordById(long id);
-    List<RecordBean> listRecord();
-    List<RecordBean> listRecordAsc();
+    List<RecordBean> listRecord(Long id);
+    List<RecordBean> listRecordAsc(Long id);
     int updateRecord(RecordBean recordBean);
 }
